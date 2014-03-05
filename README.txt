@@ -8,6 +8,6 @@ Copy the files in C391Proj1 folder into you php folder:
 
 /compsci/webdocs/<userid>/web_docs/
 
-and access with:
+and access with it like:
 
-http://consort.cs.ualberta.ca/~<userid>/<php_file>.php
+http://consort.cs.ualberta.ca/~userid/php_file.php
