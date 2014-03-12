@@ -4,7 +4,7 @@
 <body>
 	<?php
 		if (isset($_POST['Update_Users'])) {
-			echo "<form action = 'managment.php' METHOD = 'POST'></br>";
+			echo "<form action = 'management.php' METHOD = 'POST'></br>";
 			echo 'Put in the users\'s id followed by the information you would like to update';
 			echo "ID: <input type = 'text' name = 'id'/></br>";
 			echo "Username: <input type = 'text' name = 'user'/></br>";
@@ -15,7 +15,7 @@
 			echo "</form>";
 		}
 		if (isset($_POST['Enter_Users'])) {
-			echo "<form action = 'managment.php' METHOD = 'POST'></br>";
+			echo "<form action = 'management.php' METHOD = 'POST'></br>";
 			echo 'Put in the new users\'s information you would like to enter:</br>';
 			echo "ID: <input type = 'text' name = 'id'/></br>";
 			echo "Username: <input type = 'text' name = 'user'/></br>";
@@ -26,7 +26,7 @@
 			echo "</form>";
 		}
 		if (isset($_POST['Update_Doctors'])) {
-			echo "<form action = 'managment.php' METHOD = 'POST'></br>";
+			echo "<form action = 'management.php' METHOD = 'POST'></br>";
 			echo 'Put in the doctor\'s id followed by the information you would like to update';
 			echo "ID: <input type = 'text' name = 'id'/></br>";
 			echo "Patient ID: <input type = 'text' name = 'p_id'/></br>";
@@ -34,7 +34,7 @@
 			echo "</form>";
 		}
 		if (isset($_POST['Enter_Doctors'])) {
-			echo "<form action = 'managment.php' METHOD = 'POST'></br>";
+			echo "<form action = 'management.php' METHOD = 'POST'></br>";
 			echo 'Put in the new doctor\'s information you would like to enter:</br>';
 			echo "Doctor ID: <input type = 'text' name = 'id'/></br>";
 			echo "Patient ID: <input type = 'text' name = 'p_id'/></br>";
@@ -42,7 +42,7 @@
 			echo "</form>";
 		}
 		if (isset($_POST['Update_Persons'])) {
-			echo "<form action = 'managment.php' METHOD = 'POST'></br>";
+			echo "<form action = 'management.php' METHOD = 'POST'></br>";
 			echo 'Put in the person\'s id followed by the information you would like to update';
 			echo "ID: <input type = 'text' name = 'id'/></br>";
 			echo "First Name: <input type = 'text' name = 'first'/></br>";
@@ -54,7 +54,7 @@
 			echo "</form>";
 		}
 		if (isset($_POST['Enter_Persons'])) {
-			echo "<form action = 'managment.php' METHOD = 'POST'></br>";
+			echo "<form action = 'management.php' METHOD = 'POST'></br>";
 			echo 'Put in the new person\'s information you would like to enter:</br>';
 			echo "ID: <input type = 'text' name = 'id'/></br>";
 			echo "First Name: <input type = 'text' name = 'first'/></br>";

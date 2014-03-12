@@ -205,8 +205,8 @@
 		   oci_free_statement($stid);
 		   oci_close($conn);
 	    }
-	    echo '<FORM action = "managment.html" Method = "post"></br>';
-	    echo 'Go back to managment home page: <input type = "submit" name = "submit" value = "back"/></br>';  
+	    echo '<FORM action = "management.html" Method = "post"></br>';
+	    echo 'Go back to management home page: <input type = "submit" name = "submit" value = "back"/></br>';  
 	?>
 	</table>
 	</center>
