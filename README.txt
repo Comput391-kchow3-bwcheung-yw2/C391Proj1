@@ -17,3 +17,11 @@ SESSION VARIABLES USED IN PROJECT:
 
 $_SESSION['person_id']
   This stores the person id of the person currently logged in.
+  
+$_SESSION['person_class']
+  This stores the person class that the user currenly logged in is.
+  The classes are:
+    a - administrator
+    p - patient
+    d - doctor
+    r - radiologist
