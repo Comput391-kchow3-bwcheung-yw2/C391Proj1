@@ -65,6 +65,22 @@
 			echo "<input type = 'submit' name = 'enter_persons' value = 'enter'/>";
 			echo "</form>";
 		}
+
+		if (isset($_POST['Enter_Records'])) {
+			echo "<form action = 'upload.php' METHOD = 'POST'></br>";
+			echo 'Put in the new record you would like to enter:</br>';
+			echo "Record ID: <input type = 'int' name = 'RECORD_ID'/></br>";
+			echo "Patient ID: <input type = 'int' name = 'PATIENT_ID'/></br>";
+			echo "Doctor ID: <input type = 'int' name = 'DOCTOR_ID'/></br>";
+			echo "Radiologist ID: <input type = 'int' name = 'RADIOLOGIST_ID'/></br>";
+			echo "Test Type: <input type = 'text' name = 'TEST_TYPE'/></br>";
+			echo "Prescribing Date: <input type = 'date' name = 'PRESCRIBING_DATE'/></br>";
+			echo "Test Date: <input type = 'date' name = 'TEST_DATE'/></br>";
+			echo "Diagnosis: <input type = 'text' name = 'DIAGNOSIS'/></br>";
+			echo "Description: <input type = 'text' name = 'DESCRIPTION'/></br>";
+			echo "<input type = 'submit' name = 'enter_records' value = 'Enter'/>";
+			echo "</form>";
+		}
 	?>
 </center>
 </body>

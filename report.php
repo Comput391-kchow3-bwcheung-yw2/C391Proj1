@@ -1,38 +1,30 @@
-<?php
-include("PHPconnectionDB.php");
-?>
-<HTML>
-<HEAD>
-
-
-<TITLE>Search Result</TITLE>
-</HEAD>
-<Center>
-<BODY>
+<html>
+    <body>
+	<center>
 	<?php
-	
-	if(isset ($_POST['SEARCH']))
-	{
+	  include("PHPconnectionDB.php");
+	  if(isset ($_POST['Search'])) {
+		//establish connection
+		$conn=connect();
 		//get input
 		$diagnosis = $_POST['DIAGNOSIS'];
 		$from = $_POST['FROM'];
 		$till = $_POST['TILL'];
-		
-		ini_set('display_errors', 1);
-		error_reporting(E_ALL);
-		
-		//establish connection
-		$conn=connect();
-		if (!$conn)
-		{
-			$e = oci_error();
-			trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
-		}
-		
+		echo '<h1> Search Result </h1>';
+		echo '</form>';        
+		echo '<table>';
+		echo '<tr>';
+		echo '<th> First Name </th>';
+		echo '<th> Last Name </th>';
+		echo '<th> Address </th>';
+		echo '<th> Phone </th>';
+		echo '<th> Test Date </th>';
+		echo '</tr>';
+
 		//sql command
 		$sql = 'SELECT persons.first_name, persons.last_name, persons.address, persons.phone, radiology_record.test_date
 			FROM persons, users, radiology_record
-			WHERE users.class = 'a', persons.person_id = radiology_record.patient_id, radiology_record.diagnosis = \''.$diagnosis.'\', radiology_record.test_date > TO_DATE(\''.$from.'\', 'yyyymmdd'), radiology_record.test_date < TO_DATE(\''.$till.'\', 'yyyymmdd')';
+			WHERE users.class = 'a', persons.person_id = radiology_record.patient_id, radiology_record.diagnosis = \''.$diagnosis.'\', radiology_record.test_date > \''.$from.'\', radiology_record.test_date < \''.$till.'\'';
 		
 		//Prepare sql using conn and returns the statement identifier
 		$stid = oci_parse($conn, $sql);
@@ -46,22 +38,17 @@ include("PHPconnectionDB.php");
 			$err = oci_error($stid);
 			echo htmlentities($err['message']);
 		}
-		else
-		{
-			echo 'Search Result <br/>';
-		}
-		
-		$redirect = false;
 		
 		while ($row = oci_fetch_array($stid, OCI_ASSOC)) {
-	   	
+	   		echo '<tr>';
 			foreach ($row as $item) {
 				echo $item.'&nbsp;';
 			}
+			echo '</tr>';
 			echo '<br/>';
 	   	}
 		
-		
+		echo '</table>';
 		oci_free_statement($stid);
 		oci_close($conn);
 		
@@ -69,7 +56,7 @@ include("PHPconnectionDB.php");
 	?>
 	
 
-</BODY>
-</Center>
-</HTML>
-
+	</table>
+	</center>
+    </body>
+</html>
