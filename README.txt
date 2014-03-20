@@ -14,6 +14,10 @@ http://consort.cs.ualberta.ca/~userid/php_file.php
 
 
 SESSION VARIABLES USED IN PROJECT:
+To resume a session you have to declare: 
+session_start();
+before you can use a session variable.
+
 
 $_SESSION['person_id']
   This stores the person id of the person currently logged in.
