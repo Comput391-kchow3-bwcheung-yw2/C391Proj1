@@ -24,22 +24,6 @@
                 Records_table();
 	   }
 
-	if (isset($_POST['enter_pictures'])) {
-		$conn=connect();
-		$Record_id = $_POST['RECORD_ID'];
-		$Image_id = $_POST['IMAGE_ID'];
-		$Thumbnail = $_POST['THUMBNAIL'];
-		$Regular_size = $_POST['REGULAR_SIZE'];
-		$Full_size = $_POST['FULL_SIZE'];
-		$sql = 'INSERT INTO PACS_IMAGES VAlUES (\''.$Record_id.'\''.', \''.$Image_id.'\''.', \''.$Thumbnail.'\''.', \''.s$Regular_size.'\''.', \''.$Full_size.'\''.')';
-		$stid = oci_parse($conn, $sql);
-           	$res=oci_execute($stid); 
-           	if (!$res) {
-			$err = oci_error($stid);
-			echo htmlentities($err['message']);
-           	}
-                Pictures_table();
-	   }
 	   
 	   if (isset($_POST['Records'])) {
 		Records_table();
