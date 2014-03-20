@@ -13,6 +13,7 @@ include("PHPconnectionDB.php");
 	
 	if(isset ($_POST['LOGIN']))
 	{
+		session_start();
 		//get input
 		$user = $_POST['USERID'];
 		$pass = $_POST['PASSWORD'];
@@ -56,6 +57,8 @@ include("PHPconnectionDB.php");
 			if($row['USER_NAME'] == $user && $row['PASSWORD'] == $pass)
 			{
 				echo '<CENTER><p><b>Your Login is Successful!</b></p></CENTER>';
+				$_SESSION['person_id'] = $row['PERSON_ID'];
+				$_SESSION['person_class'] = $row['CLASS'];
 				$redirect = true;
 			}
 		
@@ -65,6 +68,11 @@ include("PHPconnectionDB.php");
 		if($redirect)
 		{
 			//redirect to main navigation page
+			echo('<CENTER>');
+			echo('<form method=post action=Navigation.php>');
+			echo('<input type=submit name=NAV value="Go To Navigation">');
+			echo('</CENTER>');
+			
 		}
 		else
 		{
