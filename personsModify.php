@@ -4,10 +4,13 @@
         
         <?php
             include ("PHPconnectionDB.php");
-            
+            session_start();
+	    
             if (isset($_POST['LoginModify'])) {
-		
-		$sql = 'SELECT USER_NAME, PASSWORD FROM Users WHERE PERSON_ID = \'' . $_SESSION['person_id'].'\'';
+		$conn = connect();
+		$sql = 'SELECT * FROM Users WHERE PERSON_ID = \''.$_SESSION['person_id'].'\'';
+		echo $sql;
+		echo $_SESSION['person_id'];
 		   $stid = oci_parse($conn, $sql );
 		   $res=oci_execute($stid); 
 		   if (!$res) {
@@ -17,17 +20,20 @@
 		   while ($row = oci_fetch_array($stid, OCI_ASSOC)) {
 			$Username = $row['USER_NAME'];
 			$Password = $row['PASSWORD'];
+			echo $row;
+			echo $Username;
+			echo $Password;
 		   }
-		   
-		echo "<form action = 'personModify.php' METHOD = 'POST'></br>";
-		echo 'Put in the new information you would like to enter:</br>';
-		echo "Username: <input type = 'text' name = 'user value =".$Username."/></br>";
-		echo "Password: <input type = 'text' name = 'pass' value =".$Password."/></br>";
-		echo "<input type = 'submit' name = 'update_login' value = 'enter'/>";
+		echo "<form action = 'personsModify.php' METHOD = 'POST'>";
+		echo '<br>Put in the new information you would like to enter:</br>';
+		echo "<br>Username: <input type = 'text' name = 'user' value ="."'".$Username."'"."/></br>";
+		echo "<br>Password: <input type = 'text' name = 'pass' value ="."'".$Password."'"."/></br>";
+		echo "<br><input type = 'submit' name = 'update_login' value = 'enter'/></br>";
 		echo "</form>";
             }
 	    
 	    if (isset($_POST['update_login'])) {
+		$conn = connect();
 		$user = $_POST['user'];
 		$pass = $_POST['pass'];
 		
@@ -35,7 +41,7 @@
 	    
 		$stid = oci_parse($conn, $sql);
            	$res=oci_execute($stid); 
-           	if (!$res) {
+           	if (!$res) {session_start();
 			$err = oci_error($stid);
 			echo htmlentities($err['message']);
            	}
@@ -47,8 +53,8 @@
 	    
             
             if (isset($_POST['PersonsModify'])) {
-                
-		$sql = 'SELECT * FROM Users WHERE PERSON_ID = \'' . $_SESSION['person_id'].'\'';
+                $conn = connect();
+		$sql = 'SELECT * FROM PERSONS WHERE PERSON_ID = \'' . $_SESSION['person_id'].'\'';
 		   $stid = oci_parse($conn, $sql );
 		   $res=oci_execute($stid); 
 		   if (!$res) {
@@ -63,18 +69,19 @@
 			$phone = $row['PHONE'];
 		   }
 		   
-		echo "<form action = 'personModify.php' METHOD = 'POST'></br>";
-		echo 'Put in the new information you would like to enter:</br>';
-		echo "First Name: <input type = 'text' name = 'first value =".$first_name."/></br>";
-		echo "Last Name: <input type = 'text' name = 'last' value =".$last_name."/></br>";
-		echo "Address: <input type = 'text' name = 'address value =".$address."/></br>";
-		echo "Email: <input type = 'text' name = 'email' value =".$email."/></br>";
-		echo "Phone: <input type = 'text' name = 'phone value =".$phone."/></br>";
-		echo "<input type = 'submit' name = 'update_person' value = 'enter'/>";
+		echo "<form action = 'personsModify.php' METHOD = 'POST'></br>";
+		echo '<br>Put in the new information you would like to enter:</br>';
+		echo "<br>First Name: <input type = 'text' name = 'first' value ="."'".$first_name."'"."/></br>";
+		echo "<br>Last Name: <input type = 'text' name = 'last' value ="."'".$last_name."'"."/></br>";
+		echo "<br>Address: <input type = 'text' name = 'address' value ="."'".$address."'"."/></br>";
+		echo "<br>Email: <input type = 'text' name = 'email' value ="."'".$email."'"."/></br>";
+		echo "<br>Phone: <input type = 'text' name = 'phone' value ="."'".$phone."'"."/></br>";
+		echo "<br><input type = 'submit' name = 'update_person' value = 'enter'/>";
 		echo "</form>";
             }
 	    
 	    if (isset($_POST['update_person'])) {
+		$conn = connect();
 		$first = $_POST['first'];
 		$last = $_POST['last'];
 		$id = $_POST['id'];
@@ -96,7 +103,7 @@
 	    }
 	    
         
-	    echo '<FORM action = "personModify.html.html" Method = "post"></br>';
+	    echo '<FORM action = "personModify.html" Method = "post"></br>';
 	    echo 'Go back to Personal Info Management: <input type = "submit" name = "submit" value = "back"/></br>';  
 	?>
         

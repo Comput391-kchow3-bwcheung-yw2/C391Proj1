@@ -10,14 +10,16 @@
 <?php
         if(isset ($_POST['NAV']))
 	{
+		session_start();
+	
 		//show option for modifying personal info
-		echo('<FORM');
-                echo('NAME="PERSONFORM" ACTION="personModify.html" METHOD="post" >');
+                echo('<FORM ');
+                echo('NAME="PersonalInfoForm" ACTION="personModify.html" METHOD="post" >');
                 echo('<CENTER>');
+                echo('<P>Personal Info Module</P>');
                 echo('<TABLE>');
                 echo('<TR VALIGN=TOP ALIGN=LEFT>');
-                echo('<P>Modify Personal Info</P>');
-                echo('<TD><INPUT TYPE="submit" NAME="PersonButton" VALUE="Update Info"></TD>');
+                echo('<TD><INPUT TYPE="submit" NAME="PersonalModify" VALUE="Update Personal Info"></TD>');
                 echo('</TR>');
                 echo('</TABLE>');
                 echo('</CENTER>');
@@ -25,13 +27,13 @@
 		
             //show option for admins
             if($_SESSION['person_class'] == "a")
-            {
-                echo('<FORM');
+            {	
+                echo('<FORM ');
                 echo('NAME="ManagementForm" ACTION="management.html" METHOD="post" >');
                 echo('<CENTER>');
-                echo('<TABLE>');
-                echo('<TR VALIGN=TOP ALIGN=LEFT>');
                 echo('<P>User Management Module</P>');
+		echo('<TABLE>');
+                echo('<TR VALIGN=TOP ALIGN=LEFT>');
                 echo('<TD><INPUT TYPE="submit" NAME="ModifyButton" VALUE="User Management"></TD>');
                 echo('</TR>');
                 echo('</TABLE>');
