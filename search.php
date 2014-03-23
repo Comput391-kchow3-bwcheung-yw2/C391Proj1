@@ -1,3 +1,5 @@
+
+<!--Referenced :http://stackoverflow.com/questions/5525830/displaying-an-image-stored-in-a-mysql-blob?rq=1-->
 <?php
 include("PHPconnectionDB.php");
 session_start();
