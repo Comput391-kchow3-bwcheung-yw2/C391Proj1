@@ -59,7 +59,7 @@
                 echo('<FORM ');
                 echo('NAME="UploadForm" ACTION="upload.html" METHOD="post" >');
                 echo('<CENTER>');
-                echo('<P>UploadingModule</P>');
+                echo('<P>Uploading Module</P>');
                 echo('<TABLE>');
                 echo('<TR VALIGN=TOP ALIGN=LEFT>');
                 echo('<TD><INPUT TYPE="submit" NAME="UploadButton" VALUE="Upload"></TD>');
@@ -67,6 +67,20 @@
                 echo('</TABLE>');
                 echo('</CENTER>');
                 echo('</FORM>');
+            }
+	    
+		//show option seach option for all users
+                echo('<FORM ');
+                echo('NAME="SearchForm" ACTION="search.html" METHOD="post" >');
+                echo('<CENTER>');
+                echo('<P>Search Module</P>');
+                echo('<TABLE>');
+                echo('<TR VALIGN=TOP ALIGN=LEFT>');
+                echo('<TD><INPUT TYPE="submit" NAME="SearchButton" VALUE="Search"></TD>');
+                echo('</TR>');
+                echo('</TABLE>');
+                echo('</CENTER>');
+		echo('</FORM>');
             }
             
             
