@@ -13,18 +13,29 @@ NAME="ReportForm" ACTION="search.php" METHOD="post" >
 <P>Search records by key words</P>
 <TABLE>
 <TR VALIGN=TOP ALIGN=LEFT>
-<TD><B>Key Words:</B></TD>
+<TD>Key Words:</TD>
 <TD><INPUT TYPE="text" NAME="WORDS"><BR></TD>
 </TR>
 </TABLE>
 
+<p>
+Order By Date: 
+<select name="formGender">
+  <option value="">None</option>
+  <option value="PreAsc">Presription Date Ascending</option>
+  <option value="PreDesc">Presription Date Descending</option>
+    <option value="TestAsc">Test Date Ascending</option>
+  <option value="TestDesc">Test Date Descending</option>
+</select>
+</p>
+
 <INPUT TYPE="submit" NAME="Search" VALUE="SEARCH">
-</CENTER>
 </FORM>
 
 <FORM ACTION = "Navigation.php" METHOD = "POST">
 <br>Back to home page: <input type = "submit" name = "back" value = "back"></br>
 </FORM>
 
+</CENTER>
 </BODY>
 </HTML>

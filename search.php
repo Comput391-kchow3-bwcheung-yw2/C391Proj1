@@ -49,7 +49,7 @@ session_start();
                     
                     $sql = 'SELECT *
                             FROM RADIOLOGY_RECORD
-                            WHERE contains(description, \''.$key.'\''.') > 0 
+                            WHERE contains(description, \''.$search_terms.'\''.') > 0 
                             AND PATIENT_ID = \''.$patient_id.'\'';
                     $stid = oci_parse($conn, $sql);
                     $res=oci_execute($stid); 
@@ -166,6 +166,91 @@ session_start();
 </HTML>
 
 <?php
+    //load the records for patients and order by ranking
+    function load_records_score($person_id, $search_terms, $time_start, $time_end, $sort_type)
+    {
+        //list of search terms
+        $word_list = explode(' ', $search_terms);
+        //count = 1 for numbering the score
+        //score1 = firstname, score2 = lastname, score3 = diagnosis, score4 = description
+        $sql = 'SELECT P.FIRST_NAME, P.LAST_NAME, R.*, 6*score(1) + 6*score(2) + 3*score(3) + score(4)'
+        $count = 5;
+        for($i = 1; $i < $count($word_list); $i++)
+        {
+            $sql = $sql.' + 6*score('.$count.') + 6*score('.$count+1.') + 3*frequency('.$count+2.') + frequency('.$count+3.')';
+            $count = $count+4;
+        }
+        $sql = $sql.' AS RANK ';     
+        $sql = $sql.'FROM RADIOLOGY_RECORD R FULL OUTER JOIN PERSONS P ON R.PATIENT_ID = P.PERSON_ID ';
+        $sql = $sql.'WHERE contains(P.FIRST_NAME, '.$word_list[0].', 1) > 0
+        OR contains(P.LAST_NAME, '.$word_list[0].', 2) > 0
+        OR contains(R.DIAGNOSIS, '.$word_list[0].', 3) > 0
+        OR contains(R.DESCRIPTION, '.$word_list[0].', 4) > 0 ';
+        
+        $count = 5;
+        for($i = 1; $i < $count($word_list); $i++)
+        {
+            $sql = $sql.'OR contains(P.FIRST_NAME, '.$word_list[$i].', '.$count.') > 0
+                OR contains(P.LAST_NAME, '.$word_list[$i].', '.$count+1.') > 0
+                OR contains(R.DIAGNOSIS, '.$word_list[$i].', '.$count+2.') > 0
+                OR contains(R.DESCRIPTION, '.$word_list[$i].', '.$count+3.') > 0 ';
+                $count = $count+4;
+        }
+        
+        //security part of query
+        if($_SESSION['person_class'] == "p"){
+            $sql = $sql.'AND R.PATIENT_ID = \''.$person_id.'\' ';
+        }
+        if($_SESSION['person_class'] == "d"){
+            $sql = $sql.'AND R.DOCTOR_ID = \''.$person_id.'\' ';
+        }
+        if($_SESSION['person_class'] == "r"){
+            $sql = $sql.'AND R.RADIOLOGIST_ID = \''.$person_id.'\' ';
+        }
+        
+        if($time_start != "" && $time_end != "")
+        {
+            $time_period = 'TO_DATE(\''.$time_start.'\', \'yyyymmdd\') AND TO_DATE(\''.$time_end.'\', \'yyyymmdd\')';
+            $sql = $sql.'R.TEST_DATE BETWEEN '.$time_period.' ';
+        }
+        
+        if($sort_type == ""){
+            $sql = $sql.'ORDER BY RANK DESC, R.RECORD_ID';
+        }
+        if($sort_type == "PreAsc"){
+            $sql = $sql.'ORDER BY R.PRESCRIBING_DATE ASC';
+        }
+        if($sort_type == "PreDesc"){
+            $sql = $sql.'ORDER BY R.PRESCRIBING_DATE DESC';
+        }
+        if($sort_type == "TestAsc"){
+            $sql = $sql.'ORDER BY R.TEST_DATE ASC';
+        }
+        if($sort_type == "TestDesc"){
+            $sql = $sql.'ORDER BY R.TEST_DATE DESC';
+        }
+        
+        $stid = oci_parse($conn, $sql);
+        $res=oci_execute($stid); 
+        if (!$res) {
+            $err = oci_error($stid);
+            echo htmlentities($err['message']);
+        }
+        while ($row = oci_fetch_array($stid, OCI_ASSOC)) {
+            echo '<tr>';
+            foreach ($row as $item) {
+                echo "<td> $item </td>";
+                //get the images with the record id
+                load_pics($row['RECORD_ID']);
+                }
+            echo '</tr>';
+            echo '<br/>';
+    }
+    
+?>
+
+<?php
+    //load the pictures for the record id
     function load_pics($recordID) {
         
         $sql = 'SELECT * FROM PACS_IMAGES WHERE RECORD_ID = \''.$recordID.'\'';
