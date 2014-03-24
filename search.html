@@ -16,11 +16,19 @@ NAME="ReportForm" ACTION="search.php" METHOD="post" >
 <TD>Key Words:</TD>
 <TD><INPUT TYPE="text" NAME="WORDS"><BR></TD>
 </TR>
+<TR VALIGN=TOP ALIGN=LEFT>
+<TD>Start Time:</TD>
+<TD><INPUT TYPE="date" NAME="TIMESTART"></TD>
+</TR>
+<TR VALIGN=TOP ALIGN=LEFT>
+<TD>End Time:</TD>
+<TD><INPUT TYPE="date" NAME="TIMEEND"></TD>
+</TR>
 </TABLE>
 
 <p>
 Order By Date: 
-<select name="formGender">
+<select name="SORT">
   <option value="">None</option>
   <option value="PreAsc">Presription Date Ascending</option>
   <option value="PreDesc">Presription Date Descending</option>

@@ -27,6 +27,8 @@ session_start();
             $conn = connect();
             echo '<table>';
             echo '<tr>';
+            echo '<th> First Name </th>';
+            echo '<th> Last Name </th>';
             echo '<th> Record ID </th>';
             echo '<th> Patient ID </th>';
             echo '<th> Doctor ID </th>';
@@ -36,121 +38,25 @@ session_start();
             echo '<th> Test Date </th>';
             echo '<th> Diagnosis </th>';
             echo '<th> Description </th>';
+            echo '<th> RANK </th>';
+            echo '<th> Images </th>';
             echo '</tr>';  
                 
             //get input
 	    $search_terms = $_POST['WORDS'];
-                
-            if($search_terms != ""){
-                
-                //user is a patient so patient_id = person_id
-                if($_SESSION['person_class'] == "p"){
-                    $patient_id = $_SESSION['person_id'];
-                    
-                    $sql = 'SELECT *
-                            FROM RADIOLOGY_RECORD
-                            WHERE contains(description, \''.$search_terms.'\''.') > 0 
-                            AND PATIENT_ID = \''.$patient_id.'\'';
-                    $stid = oci_parse($conn, $sql);
-                    $res=oci_execute($stid); 
-                    if (!$res) {
-                        $err = oci_error($stid);
-                        echo htmlentities($err['message']);
-                    }
-                    while ($row = oci_fetch_array($stid, OCI_ASSOC)) {
-                        echo '<tr>';
-                        foreach ($row as $item) {
-                            echo "<td> $item </td>";
-                            //get the images with the record id
-                            load_pics($row['RECORD_ID']);
-                        }
-                        echo '</tr>';
-                        echo '<br/>';
-                    }
-                }
-                
-                //user is a doctor so doctor_id = person_id
-                if($_SESSION['person_class'] == "d"){
-                    $doctor_id = $_SESSION['person_id'];
-                    
-                    $sql = 'SELECT *
-                            FROM RADIOLOGY_RECORD
-                            WHERE contains(description, \''.$key.'\''.') > 0 
-                            AND DOCTOR_ID = \''.$doctor_id.'\'';
-                    $stid = oci_parse($conn, $sql);
-                    $res=oci_execute($stid); 
-                    if (!$res) {
-                        $err = oci_error($stid);
-                        echo htmlentities($err['message']);
-                    }
-                    while ($row = oci_fetch_array($stid, OCI_ASSOC)) {
-                        echo '<tr>';
-                        foreach ($row as $item) {
-                            echo "<td> $item </td>";
-                            //get the images with the record id
-                            load_pics($row['RECORD_ID']);
-                        }
-                        echo '</tr>';
-                        echo '<br/>';
-                    }
-                }
-                
-                //user is a radiologist so radiologit_id = person_id
-                if($_SESSION['person_class'] == "r"){
-                    $radiologist_id = $_SESSION['person_id'];
-                    
-                    $sql = 'SELECT *
-                            FROM RADIOLOGY_RECORD
-                            WHERE contains(description, \''.$key.'\''.') > 0 
-                            AND RADIOLOGIST_ID = \''.$radiologist_id.'\'';
-                    $stid = oci_parse($conn, $sql);
-                    $res=oci_execute($stid); 
-                    if (!$res) {
-                        $err = oci_error($stid);
-                        echo htmlentities($err['message']);
-                    }
-                    while ($row = oci_fetch_array($stid, OCI_ASSOC)) {
-                        echo '<tr>';
-                        foreach ($row as $item) {
-                            echo "<td> $item </td>";
-                            //get the images with the record id
-                            load_pics($row['RECORD_ID']);                           
-                        }
-                        echo '</tr>';
-                        echo '<br/>';
-                    }                    
-                }
-                
-                //user is a admin so list all records
-                if($_SESSION['person_class'] == "a"){
-                    
-                    $sql = 'SELECT * FROM RADIOLOGY_RECORD WHERE contains(description, \''.$key.'\''.') > 0';
-                    $stid = oci_parse($conn, $sql);
-                    $res=oci_execute($stid); 
-                    if (!$res) {
-                        $err = oci_error($stid);
-                        echo htmlentities($err['message']);
-                    }
-                    while ($row = oci_fetch_array($stid, OCI_ASSOC)) {
-                        echo '<tr>';
-                        foreach ($row as $item) {
-                            echo "<td> $item </td>";
-                            //get the images with the record id
-                            load_pics($row['RECORD_ID']);                               
-                        }
-                        echo '</tr>';
-                        echo '<br/>';
-                    }
-                }
-                
-                echo '</table>';
-                oci_free_statement($stid);
-                oci_close($conn);    
+            $time_start = $_POST['TIMESTART'];
+            $time_end = $_POST['TIMEEND'];
+            $sort_type = $_POST['SORT'];
+            $patient_id = $_SESSION['person_id'];
+            
+            if($search_terms == "" && $time_start == "" && $time_end == ""){
+                echo 'No search terms or time period entered.'     
             }
-            else
-            {
-                echo 'No search terms entered.'     
+            else{
+            load_records($person_id, $search_terms, $time_start, $time_end, $sort_type)
             }
+            
+            echo '</table>';
         }
     
     
@@ -167,7 +73,7 @@ session_start();
 
 <?php
     //load the records for patients and order by ranking
-    function load_records_score($person_id, $search_terms, $time_start, $time_end, $sort_type)
+    function load_records($person_id, $search_terms, $time_start, $time_end, $sort_type)
     {
         //list of search terms
         $word_list = explode(' ', $search_terms);
@@ -245,11 +151,11 @@ session_start();
                 }
             echo '</tr>';
             echo '<br/>';
+        }
+        oci_free_statement($stid);
+        oci_close($conn);
     }
     
-?>
-
-<?php
     //load the pictures for the record id
     function load_pics($recordID) {
         
