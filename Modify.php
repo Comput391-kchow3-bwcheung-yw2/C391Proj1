@@ -56,7 +56,6 @@
 		if (isset($_POST['Enter_Persons'])) {
 			echo "<form action = 'management.php' METHOD = 'POST'></br>";
 			echo 'Put in the new person\'s information you would like to enter:</br>';
-			echo "ID: <input type = 'text' name = 'id'/></br>";
 			echo "First Name: <input type = 'text' name = 'first'/></br>";
 			echo "Last Name: <input type = 'text' name = 'last'/></br>";
 			echo "Address: <input type = 'text' name = 'address'/></br>";

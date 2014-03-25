@@ -3,9 +3,10 @@
 	<center>
         <?php 
 	   include ("PHPconnectionDB.php");
+	   include ("getID.php");
            if (isset($_POST['RecordRetrieve'])) {
 		$conn=connect();
-		$Record_id = $_POST['RECORD_ID'];
+		$Record_id = newRecordID();;
 		$Patient_id = $_POST['PATIENT_ID'];
 		$Doctor_id = $_POST['DOCTOR_ID'];
 		$Radiologist_id = $_POST['RADIOLOGIST_ID'];
@@ -29,10 +30,9 @@
 		Records_table();
 	   }
 	   
-	   if (isset($_POST['Enter_Records']){
+	   if (isset($_POST['Enter_Records'])){
 	    	echo "<form action = 'upload.php' METHOD = 'POST'></br>";
 		echo 'Put in the new record you would like to enter:</br>';
-		echo "Record ID: <input type = 'int' name = 'RECORD_ID'/></br>";
 		echo "Patient ID: <input type = 'int' name = 'PATIENT_ID'/></br>";
 		echo "Doctor ID: <input type = 'int' name = 'DOCTOR_ID'/></br>";
 		echo "Radiologist ID: <input type = 'int' name = 'RADIOLOGIST_ID'/></br>";

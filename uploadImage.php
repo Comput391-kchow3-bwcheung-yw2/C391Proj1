@@ -6,6 +6,8 @@
     <?php
         //code taken from: http://www.php-tutorials.com/oracle-blob-insert-php-bind-variables/
         //http://www.9lessons.info/2009/03/upload-and-resize-image-with-php.html
+	include ("PHPconnectionDB.php");
+	include ("getID.php");
         $conn=connect();
         
         if (isset($_POST['Pictures'])) {
@@ -27,15 +29,7 @@
             
             if(is_uploaded_file($_FILES['filename']['tmp_name'])){
                 
-                $sql = 'SELECT pic_id_sequence.nextval from dual';
-		$stid = oci_parse($conn, $sql);
-		$res=oci_execute($stid); 
-		if (!$res) {
-                    $err = oci_error($stid);
-		    echo htmlentities($err['message']);
-		}
-                $row = oci_fetch_array($stid, OCI_ASSOC))
-                $image_id = $row['pic_id_sequence'];
+                $image_id = newImageID();
                     
                 $uploadedfile = $_FILES['filename']['tmp_name'];
                 $image = imagecreatefromjpeg($uploadedfile);

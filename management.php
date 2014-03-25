@@ -3,6 +3,7 @@
 	<center>
         <?php 
 	   include ("PHPconnectionDB.php");
+	   include ("getID.php");
            if (isset($_POST['enter_users'])) {
 		$conn=connect();
 		$user = $_POST['user'];
@@ -23,10 +24,11 @@
 		$conn = connect();
 		$first = $_POST['first'];
 		$last = $_POST['last'];
-		$id = $_POST['id'];
+		$id = newPersonID();
 		$address = $_POST['address'];
 		$phone = $_POST['phone'];
 		$email = $_POST['email'];
+		echo 'ID is:'.$id;
 		$sql = 'INSERT INTO PERSONS VAlUES (\''.$id.'\''.', \''.$first.'\''.', \''.$last.'\''.', \''.$address.'\''.', \''.$email.'\''.',\''.$phone.'\''.')';
 		$stid = oci_parse($conn, $sql);
            	$res=oci_execute($stid); 
