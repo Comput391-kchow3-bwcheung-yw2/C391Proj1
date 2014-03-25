@@ -3,7 +3,7 @@
 	<center>
         <?php 
 	   include ("PHPconnectionDB.php");
-           if (isset($_POST['enter_records'])) {
+           if (isset($_POST['RecordRetrieve'])) {
 		$conn=connect();
 		$Record_id = $_POST['RECORD_ID'];
 		$Patient_id = $_POST['PATIENT_ID'];
@@ -28,14 +28,27 @@
 	   if (isset($_POST['Records'])) {
 		Records_table();
 	   }
-	  
-	   if (isset($_POST['Pictures'])) {
-		Pictures_table();
+	   
+	   if (isset($_POST['Enter_Records']){
+	    	echo "<form action = 'upload.php' METHOD = 'POST'></br>";
+		echo 'Put in the new record you would like to enter:</br>';
+		echo "Record ID: <input type = 'int' name = 'RECORD_ID'/></br>";
+		echo "Patient ID: <input type = 'int' name = 'PATIENT_ID'/></br>";
+		echo "Doctor ID: <input type = 'int' name = 'DOCTOR_ID'/></br>";
+		echo "Radiologist ID: <input type = 'int' name = 'RADIOLOGIST_ID'/></br>";
+		echo "Test Type: <input type = 'text' name = 'TEST_TYPE'/></br>";
+		echo "Prescribing Date: <input type = 'date' name = 'PRESCRIBING_DATE'/></br>"
+		echo "Test Date: <input type = 'date' name = 'TEST_DATE'/></br>";
+		echo "Diagnosis: <input type = 'text' name = 'DIAGNOSIS'/></br>";
+		echo "Description: <input type = 'text' name = 'DESCRIPTION'/></br>";
+		echo "<input type = 'submit' name = 'RecordRetrieve' value = 'Enter'/>";
+		echo "</form>";
 	   }
+	  
 	   function Records_table() {
 		   $conn = connect();
 		   echo '<h1> Records Table </h1>';
-		   echo '<FORM action = "Modify.php" Method = "post"></br>';
+		   echo '<FORM action = "upload.php" Method = "post"></br>';
 		   echo 'To enter new data: <input type = "submit" name = "Enter_Records" value = "Submit"/></br>';
  	           echo '</form>';          
 		   echo '<table>';
