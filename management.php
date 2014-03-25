@@ -2,8 +2,8 @@
     <body>
 	<center>
         <?php 
-	   include ("PHPconnectionDB.php");
-	   include ("getID.php");
+	   include("PHPconnectionDB.php");
+	   include("getID.php");
            if (isset($_POST['enter_users'])) {
 		$conn=connect();
 		$user = $_POST['user'];
@@ -102,7 +102,7 @@
 	   }
 	  
 	    if (isset($_POST['Persons'])) {
-			Persons_table();
+		Persons_table();
 	    }
 	    if (isset($_POST['Doctors'])) {
 		Doctors_table();
@@ -207,8 +207,8 @@
 		   oci_free_statement($stid);
 		   oci_close($conn);
 	    }
-	    echo '<FORM action = "management.html" Method = "post"></br>';
-	    echo 'Go back to management home page: <input type = "submit" name = "submit" value = "back"/></br>';  
+	    echo '<br><FORM ACTION="management.html" METHOD="post"></br>';
+	    echo 'Back to management: <input type="submit" name="submit" value="submit"></FORM>';
 	?>
 	</table>
 	</center>

@@ -3,7 +3,7 @@
 	<center>
 	<?php
 	  include("PHPconnectionDB.php");
-	  if(isset ($_POST['Search'])) {
+	  if(isset ($_POST['search'])) {
 		//establish connection
 		$conn=connect();
 		//get input
