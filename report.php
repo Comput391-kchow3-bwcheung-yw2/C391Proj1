@@ -1,6 +1,11 @@
 <html>
     <body>
 	<center>
+	    <style>
+	    table, th, td {
+		border:1px solid black;
+	    }
+	    </style>
 	<?php
 	  include("PHPconnectionDB.php");
 	  if(isset ($_POST['search'])) {
@@ -23,7 +28,7 @@
 		
 		if($from != "" && $till != "")
 		{
-		    $time_period = 'TO_DATE(\''.$from.'\', \'yyyymmdd\') AND TO_DATE(\''.$till.'\', \'yyyymmdd\')';
+		    $time_period = 'TO_DATE(\''.$from.'\', \'MM/DD/YYYY\') AND TO_DATE(\''.$till.'\', \'MM/DD/YYYY\')';
 
 		    //sql command
 		    $sql = 'SELECT persons.first_name, persons.last_name, persons.address, persons.phone, radiology_record.test_date
@@ -65,6 +70,8 @@
 	
 
 	</table>
+	<br><FORM ACTION="report.html" METHOD="post"></br>
+	Back to report page: <input type="submit" name="submit" value="back"></FORM>
 	</center>
     </body>
 </html>

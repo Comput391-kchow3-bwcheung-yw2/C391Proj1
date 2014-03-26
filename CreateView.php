@@ -4,12 +4,12 @@
     
 <?php
     include("PHPconnectionDB.php");
-    if(isset ($_POST['CreateView'])) {
+    if(isset ($_POST['CreateViewButton'])) {
         $conn=connect();
         
         //sql command
 	$sql = 'CREATE OR REPLACE VIEW DATAVIEW AS 
-                SELECT P.FIRST_NAME, P_LAST_NAME, R.TEST_TYPE, R.TEST_DATE, I.IMAGE_ID 
+                SELECT P.FIRST_NAME, P.LAST_NAME, R.TEST_TYPE, R.TEST_DATE, I.IMAGE_ID 
 		FROM PERSONS P, RADIOLOGY_RECORD R, PACS_IMAGES I 
                 WHERE P.PERSON_ID = R.PATIENT_ID AND I.RECORD_ID = R.RECORD_ID';
                 
@@ -31,14 +31,14 @@
             $e = oci_error($conn);
             echo trigger_error(htmlentities($e['message']), E_USER_ERROR);
         }
-        else(
-            echo'Created View.';
-        )
+        else{
+            echo 'Created View.';
+        }
     }
 ?>
 
 <FORM ACTION = "Navigation.php" METHOD = "POST">
-<br>Back to home page: <input type = "submit" name = "back" value = "back"></br>
+<br>Back to home page: <input type = "submit" name = "NAV" value = "back"></br>
 </FORM>
 
 </center>
