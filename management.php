@@ -132,7 +132,7 @@
 	   function Doctors_table() {
 		   $conn = connect();
 		   echo '<h1> Doctors Table </h1>';
-		   echo '<FORM action = "modify.php" Method = "post"></br>';
+		   echo '<FORM action = "Modify.php" Method = "post"></br>';
 	           echo 'To update table: <input type = "submit" name = "Update_Doctors" value = "submit"/></br>';
 		   echo 'To enter new data: <input type = "submit" name = "Enter_Doctors" value = "submit"/></br>';
  	           echo '</form>';          
@@ -165,7 +165,7 @@
             function Persons_table() {       
                    $conn=connect();
            	   echo '<h1> Persons Table </h1>';
-		   echo '<FORM action = "modify.php" Method = "post"></br>';
+		   echo '<FORM action = "Modify.php" Method = "post"></br>';
 	           echo 'To update table: <input type = "submit" name = "Update_Persons" value = "submit"/></br>';
 		   echo 'To enter new data: <input type = "submit" name = "Enter_Persons" value = "submit"/></br>';
  	           echo '</form>';        
@@ -202,7 +202,7 @@
             function Users_table() {
 		   $conn=connect();
 		   echo '<h1> Users Table </h1>';
-		   echo '<FORM action = "modify.php" Method = "post"></br>';
+		   echo '<FORM action = "Modify.php" Method = "post"></br>';
 	           echo 'To update table: <input type = "submit" name = "Update_Users" value = "submit"/></br>';
 		   echo 'To enter new data: <input type = "submit" name = "Enter_Users" value = "submit"/></br>';
  	           echo '</form>';    
