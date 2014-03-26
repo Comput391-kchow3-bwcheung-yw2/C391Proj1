@@ -114,7 +114,7 @@ session_start();
         
         if($time_start != "" && $time_end != "")
         {
-            $time_period = 'TO_DATE(\''.$time_start.'\', \'MM/DD/YYYY\') AND TO_DATE(\''.$time_end.'\', \'MM/DD/YYYY\')';
+            $time_period = 'TO_DATE(\''.$time_start.'\', \'DD-MON-PR\') AND TO_DATE(\''.$time_end.'\', \'DD-MON-PR\')';
             $sql = $sql.'R.TEST_DATE BETWEEN '.$time_period.' ';
         }
         
