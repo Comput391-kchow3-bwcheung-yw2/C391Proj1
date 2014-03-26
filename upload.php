@@ -1,6 +1,11 @@
 <html>
-    <body>
-	<center>
+<body>
+<center>
+<style>
+table, th, td {
+border:1px solid black;
+}
+</style>
         <?php 
 	   include ("PHPconnectionDB.php");
 	   include ("getID.php");
@@ -86,7 +91,7 @@
 	   echo '<FORM action = "upload.html" Method = "post"></br>';
 	   echo 'Go back to upload home page: <input type = "submit" name = "submit" value = "Back"/></br>';  
 	?>
-	</table>
-	</center>
-    </body>
+</table>
+</center>
+</body>
 </html>

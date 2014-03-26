@@ -28,7 +28,7 @@
 		
 		if($from != "" && $till != "")
 		{
-		    $time_period = 'TO_DATE(\''.$from.'\', \'MM/DD/YYYY\') AND TO_DATE(\''.$till.'\', \'MM/DD/YYYY\')';
+		    $time_period = 'TO_DATE(\''.$from.'\', \'DD-MON-PR\') AND TO_DATE(\''.$till.'\', \'DD-MON-PR\')';
 
 		    //sql command
 		    $sql = 'SELECT persons.first_name, persons.last_name, persons.address, persons.phone, radiology_record.test_date

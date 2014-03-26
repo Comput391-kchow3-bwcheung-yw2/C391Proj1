@@ -1,15 +1,9 @@
 <html>
     <body>
 	<center>
-        <style>
-	table, th, td {
-		border:1px solid black;
-	}
-	</style>
         <?php 
-	   include ("PHPconnectionDB.php");
-
-	   //enter new user
+	   include("PHPconnectionDB.php");
+	   include("getID.php");
            if (isset($_POST['enter_users'])) {
 		$conn=connect();
 		$user = $_POST['user'];
@@ -26,16 +20,15 @@
            	}
                 Users_table();
 	   }
-
-	   //enter new person
 	   if (isset($_POST['enter_persons'])) {
 		$conn = connect();
 		$first = $_POST['first'];
 		$last = $_POST['last'];
-		$id = $_POST['id'];
+		$id = newPersonID($conn);
 		$address = $_POST['address'];
 		$phone = $_POST['phone'];
 		$email = $_POST['email'];
+		echo 'ID is:'.$id;
 		$sql = 'INSERT INTO PERSONS VAlUES (\''.$id.'\''.', \''.$first.'\''.', \''.$last.'\''.', \''.$address.'\''.', \''.$email.'\''.',\''.$phone.'\''.')';
 		$stid = oci_parse($conn, $sql);
            	$res=oci_execute($stid); 
@@ -45,8 +38,6 @@
            	}
                 Persons_table();
 	   }
-
-           //enter new doctor
 	   if (isset($_POST['enter_doctors'])) {
 		$conn = connect();
 		$id = $_POST['id'];
@@ -60,8 +51,6 @@
            	}
                 Doctors_table();
 	   }
-
-           //update users
            if (isset($_POST['update_users'])) {
 		 $conn = connect();
 		$user = $_POST['user'];
@@ -78,8 +67,6 @@
            	}
                 Users_table();
            }
-
-           //update persons
 	   if (isset($_POST['update_persons'])) {
 		$conn = connect();
 		$first = $_POST['first'];
@@ -97,8 +84,6 @@
            	}
 		Persons_table();
            }
-
-           //update doctors
 	   if (isset($_POST['update_doctors'])) {
 		$conn = connect();
 		$id = $_POST['id'];
@@ -112,24 +97,17 @@
            	}
 		Doctors_table();
            }
-
-	   //print users table
 	   if (isset($_POST['Users'])) {
 		users_table();
 	   }
-
-	   //print persons table
-	   if (isset($_POST['Persons'])) {
-			Persons_table();
-	   }
-
-           //print doctors table
-	   if (isset($_POST['Doctors'])) {
+	  
+	    if (isset($_POST['Persons'])) {
+		Persons_table();
+	    }
+	    if (isset($_POST['Doctors'])) {
 		Doctors_table();
-	   }
-
-	   //a function to print doctors table		
-	   function Doctors_table() {
+	    }
+	    function Doctors_table() {
 		   $conn = connect();
 		   echo '<h1> Doctors Table </h1>';
 		   echo '<FORM action = "Modify.php" Method = "post"></br>';
@@ -142,7 +120,7 @@
 		   echo '<th> Patient ID </th>';
 		   echo '</tr>';  
 		   $sql = 'SELECT * FROM family_doctor';
-		   $stid = oci_parse($conn, $sql);
+		   $stid = oci_parse($conn, $sql );
 		   $res=oci_execute($stid); 
 		   if (!$res) {
 			$err = oci_error($stid);
@@ -160,9 +138,7 @@
 		   oci_free_statement($stid);
 		   oci_close($conn);
 	    }
-          
-            //a function to print persons table
-            function Persons_table() {       
+           function Persons_table() {       
                    $conn=connect();
            	   echo '<h1> Persons Table </h1>';
 		   echo '<FORM action = "Modify.php" Method = "post"></br>';
@@ -197,8 +173,6 @@
 		   oci_free_statement($stid);
 		   oci_close($conn);
 	    }
-
-            //a function to print users table
             function Users_table() {
 		   $conn=connect();
 		   echo '<h1> Users Table </h1>';
@@ -233,9 +207,9 @@
 		   oci_free_statement($stid);
 		   oci_close($conn);
 	    }
-	    echo '<FORM action = "management.html" Method = "post"></br>';
-	    echo 'Go back to managment home page: <input type = "submit" name = "submit" value = "back"/></br>';
-	    echo '</FORM>';  
+	    echo '<br><FORM ACTION="management.html" METHOD="post"></br>';
+	    echo 'Back to management: <input type="submit" name="submit" value="submit"></FORM>';
+	    echo '</table>';
 	?>
 	</center>
     </body>
