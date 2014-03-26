@@ -1,9 +1,7 @@
 <?php
     //this page is for getting auto generated ids for entering date
-    include ("PHPconnectionDB.php");
-    $conn=connect();
     
-    function newPersonID(){
+    function newPersonID($conn){
         $sql = 'SELECT person_id_sequence.nextval AS id from dual';
 	$stid = oci_parse($conn, $sql);
 	$res=oci_execute($stid); 
@@ -17,7 +15,7 @@
         return $person_id;
     }
     
-    function newRecordID(){
+    function newRecordID($conn){
         $sql = 'SELECT record_id_sequence.nextval AS id from dual';
 	$stid = oci_parse($conn, $sql);
 	$res=oci_execute($stid); 
@@ -30,7 +28,7 @@
         return $record_id;
     }
     
-    function newImageID(){
+    function newImageID($conn){
         $sql = 'SELECT pic_id_sequence.nextval AS id from dual';
 	$stid = oci_parse($conn, $sql);
 	$res=oci_execute($stid); 

@@ -29,7 +29,7 @@
             
             if(is_uploaded_file($_FILES['filename']['tmp_name'])){
                 
-                $image_id = newImageID();
+                $image_id = newImageID($conn);
                     
                 $uploadedfile = $_FILES['filename']['tmp_name'];
                 $image = imagecreatefromjpeg($uploadedfile);

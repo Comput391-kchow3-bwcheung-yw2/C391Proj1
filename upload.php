@@ -6,7 +6,7 @@
 	   include ("getID.php");
            if (isset($_POST['RecordRetrieve'])) {
 		$conn=connect();
-		$Record_id = newRecordID();;
+		$Record_id = newRecordID($conn);;
 		$Patient_id = $_POST['PATIENT_ID'];
 		$Doctor_id = $_POST['DOCTOR_ID'];
 		$Radiologist_id = $_POST['RADIOLOGIST_ID'];
@@ -37,7 +37,7 @@
 		echo "Doctor ID: <input type = 'int' name = 'DOCTOR_ID'/></br>";
 		echo "Radiologist ID: <input type = 'int' name = 'RADIOLOGIST_ID'/></br>";
 		echo "Test Type: <input type = 'text' name = 'TEST_TYPE'/></br>";
-		echo "Prescribing Date: <input type = 'date' name = 'PRESCRIBING_DATE'/></br>"
+		echo "Prescribing Date: <input type = 'date' name = 'PRESCRIBING_DATE'/></br>";
 		echo "Test Date: <input type = 'date' name = 'TEST_DATE'/></br>";
 		echo "Diagnosis: <input type = 'text' name = 'DIAGNOSIS'/></br>";
 		echo "Description: <input type = 'text' name = 'DESCRIPTION'/></br>";

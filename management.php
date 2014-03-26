@@ -24,7 +24,7 @@
 		$conn = connect();
 		$first = $_POST['first'];
 		$last = $_POST['last'];
-		$id = newPersonID();
+		$id = newPersonID($conn);
 		$address = $_POST['address'];
 		$phone = $_POST['phone'];
 		$email = $_POST['email'];
