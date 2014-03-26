@@ -13,7 +13,7 @@
 	}
         $row = oci_fetch_array($stid, OCI_ASSOC);
         $person_id = $row['id'];
-	echo 'PersonID: ', $person_id;
+	//echo 'PersonID: ', $person_id;
         return $person_id;
     }
     

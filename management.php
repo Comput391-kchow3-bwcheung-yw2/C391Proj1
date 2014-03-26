@@ -209,8 +209,8 @@
 	    }
 	    echo '<br><FORM ACTION="management.html" METHOD="post"></br>';
 	    echo 'Back to management: <input type="submit" name="submit" value="submit"></FORM>';
+	    echo '</table>';
 	?>
-	</table>
 	</center>
     </body>
 </html>

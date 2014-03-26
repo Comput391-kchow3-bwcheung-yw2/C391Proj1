@@ -9,27 +9,22 @@
             if (isset($_POST['LoginModify'])) {
 		$conn = connect();
 		$sql = 'SELECT * FROM Users WHERE PERSON_ID = \''.$_SESSION['person_id'].'\'';
-		echo $sql;
-		echo $_SESSION['person_id'];
 		   $stid = oci_parse($conn, $sql );
 		   $res=oci_execute($stid); 
-		   if (!$res) {
-			$err = oci_error($stid);
-			echo htmlentities($err['message']);
-		   }
-		   while ($row = oci_fetch_array($stid, OCI_ASSOC)) {
-			$Username = $row['USER_NAME'];
-			$Password = $row['PASSWORD'];
-			echo $row;
-			echo $Username;
-			echo $Password;
-		   }
-		echo "<form action = 'personsModify.php' METHOD = 'POST'>";
-		echo '<br>Put in the new information you would like to enter:</br>';
-		echo "<br>Username: <input type = 'text' name = 'user' value ="."'".$Username."'"."/></br>";
-		echo "<br>Password: <input type = 'text' name = 'pass' value ="."'".$Password."'"."/></br>";
-		echo "<br><input type = 'submit' name = 'update_login' value = 'enter'/></br>";
-		echo "</form>";
+		if (!$res) {
+		    $err = oci_error($stid);
+		    echo htmlentities($err['message']);
+		}
+		while ($row = oci_fetch_array($stid, OCI_ASSOC)) {
+		    $Username = $row['USER_NAME'];
+		    $Password = $row['PASSWORD'];
+		}
+	    echo "<form action = 'personsModify.php' METHOD = 'POST'>";
+	    echo '<br>Put in the new information you would like to enter:</br>';
+	    echo "<br>Username: <input type = 'text' name = 'user' value ="."'".$Username."'"."/></br>";
+	    echo "<br>Password: <input type = 'text' name = 'pass' value ="."'".$Password."'"."/></br>";
+	    echo "<br><input type = 'submit' name = 'update_login' value = 'enter'/></br>";
+	    echo "</form>";
             }
 	    
 	    if (isset($_POST['update_login'])) {
