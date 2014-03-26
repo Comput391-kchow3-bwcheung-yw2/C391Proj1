@@ -1,0 +1,45 @@
+<HTML>
+<HEAD>
+<TITLE>Data Analysis Module</TITLE>
+</HEAD>
+
+<BODY>
+<CENTER>
+<!--This is the analysis database page-->
+<H1><CENTER>Online Radiology Information System Data Analysis Module</CENTER></H1>
+
+<FORM 
+NAME="ReportForm" ACTION="search.php" METHOD="post" >
+<CENTER>
+<P>Search records by key words</P>
+<TABLE>
+<TR VALIGN=TOP ALIGN=LEFT>
+<TD>Include Patient Name:</TD>
+<TD><INPUT type="checkbox" name="PATIENT" value="Yes"><BR></TD>
+</TR>
+<TR VALIGN=TOP ALIGN=LEFT>
+<TD>Include Test Type:</TD>
+<TD><INPUT type="checkbox" name="TESTTYPE" value="Yes"></TD>
+</TR>
+</TABLE>
+
+<p>
+Include Time Period: 
+<select name="TIME_PERIOD">
+  <option value="">None</option>
+  <option value="Weekly">Weekly</option>
+  <option value="Monthly">Monthly</option>
+  <option value="Yearly">Yearly</option>
+</select>
+</p>
+
+<INPUT TYPE="submit" NAME="Analysis" VALUE="Generate Data">
+</FORM>
+
+<FORM ACTION = "Navigation.php" METHOD = "POST">
+<br>Back to home page: <input type = "submit" name = "back" value = "back"></br>
+</FORM>
+
+</CENTER>
+</BODY>
+</HTML>
