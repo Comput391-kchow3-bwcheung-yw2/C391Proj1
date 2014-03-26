@@ -28,11 +28,11 @@
 		
 		if($from != "" && $till != "")
 		{
-		    $time_period = 'TO_DATE(\''.$from.'\', \'DD-MON-PR\') AND TO_DATE(\''.$till.'\', \'DD-MON-PR\')';
+		    $time_period = 'TO_DATE(\''.$from.'\', \'DD-MON-RR\') AND TO_DATE(\''.$till.'\', \'DD-MON-RR\')';
 
 		    //sql command
 		    $sql = 'SELECT persons.first_name, persons.last_name, persons.address, persons.phone, radiology_record.test_date
-			    FROM persons, users, radiology_record
+			    FROM persons, radiology_record
 			    WHERE persons.person_id = radiology_record.patient_id AND radiology_record.diagnosis = \''.$diagnosis.'\' AND radiology_record.test_date BETWEEN '.$time_period;
 		    
 		    //Prepare sql using conn and returns the statement identifier
@@ -48,10 +48,10 @@
 			    echo htmlentities($err['message']);
 		    }
 		    
-		    while ($row = oci_fetch_array($stid, OCI_ASSOC)) {
+		    while ($row = oci_fetch_array($stid, OCI_NUM)) {
 			    echo '<tr>';
 			    foreach ($row as $item) {
-				    echo $item.'&nbsp;';
+				    echo "<td> $item </td>";
 			    }
 			    echo '</tr>';
 			    echo '<br/>';
