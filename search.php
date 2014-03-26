@@ -59,8 +59,6 @@ session_start();
             echo '</table>';
         }
     
-    
-    
     ?>
 
 <FORM ACTION = "search.html" METHOD = "POST">
@@ -96,9 +94,9 @@ session_start();
         $count = 5;
         for($i = 1; $i < $count($word_list); $i++)
         {
-            $sql = $sql.'OR contains(P.FIRST_NAME, '.$word_list[$i].', '.$count.') > 0
-	    OR contains(P.LAST_NAME, '.$word_list[$i].', '.($count+1).') > 0
-	    OR contains(R.DIAGNOSIS, '.$word_list[$i].', '.($count+2).') > 0
+            $sql = $sql.'OR contains(P.FIRST_NAME, '.$word_list[$i].', '.$count.') > 0 
+	    OR contains(P.LAST_NAME, '.$word_list[$i].', '.($count+1).') > 0 
+	    OR contains(R.DIAGNOSIS, '.$word_list[$i].', '.($count+2).') > 0 
 	    OR contains(R.DESCRIPTION, '.$word_list[$i].', '.($count+3).') > 0 ';
             $count = $count+4;
         }
@@ -170,7 +168,7 @@ session_start();
             echo "<td>";
             echo "<a href=GetPic.php?photo_id=".$row['IMAGE_ID'].">";
             echo '<img src="data:image/jpeg;base64,' . base64_encode( $row['THUMBNAIL'] ) . '" /></a>';
-            echo "</td>
+            echo "</td>";
         }  
     }
 
