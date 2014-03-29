@@ -35,7 +35,11 @@
                 $image_id = newImageID($conn);
                 
                 $image = imagecreatefromjpeg($file);
-                list($width,$height)=getimagesize($uploadedfile);
+                $image_id = newImageID($conn);
+                    
+                $image = imagecreatefromjpeg($file);
+
+                list($width,$height)=getimagesize($image);
 
                 $newwidth=800;
                 $newheight=($height/$width)*$newwidth;

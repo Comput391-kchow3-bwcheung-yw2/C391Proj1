@@ -175,6 +175,7 @@ session_start();
             $err = oci_error($stid);
             echo htmlentities($err['message']);
         }
+	
 	echo "<td>";
         while ($row = oci_fetch_array($stid, OCI_ASSOC) ) {
             echo "<a href=GetPic.php?photo_id=".$row['IMAGE_ID'].">";
