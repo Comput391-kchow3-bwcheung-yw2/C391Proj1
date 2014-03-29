@@ -10,25 +10,28 @@
 NAME="ReportForm" ACTION="report.php" METHOD="post" >
 <CENTER>
 <P>Search report with a specified diagnosis for a given time period</P>
+<P>Date Format: DD-MON-PR</P>
 <TABLE>
 <TR VALIGN=TOP ALIGN=LEFT>
-<TD><B><I>Diagnosis:</I></B></TD>
+<TD><B>Diagnosis:</B></TD>
 <TD><INPUT TYPE="text" NAME="DIAGNOSIS"><BR></TD>
 <CENTER>
 </TR>
 <TR VALIGN=TOP ALIGN=LEFT>
-<TD><B><I>From:</I></B></TD>
-<TD><INPUT TYPE="date" NAME="FROM"></TD>
+<TD><B>From:</B></TD>
+<TD><INPUT TYPE="text" NAME="FROM"></TD>
 </TR>
 <TR VALIGN=TOP ALIGN=LEFT>
-<TD><B><I>Till:</I></B></TD>
-<TD><INPUT TYPE="date" NAME="TILL"></TD>
+<TD><B>Till:</B></TD>
+<TD><INPUT TYPE="text" NAME="TILL"></TD>
 </TR>
 </TABLE>
 
 <INPUT TYPE="submit" NAME="search" VALUE="Search">
-</CENTER>
 </FORM>
+<br><FORM ACTION="Navigation.php" METHOD="post"></br>
+Back to Home: <input type="submit" name="NAV" value="back"></FORM>
+</CENTER>
 
 </BODY>
 </HTML>

@@ -1,12 +1,13 @@
 <HTML>
 <HEAD>
-<TITLE>Search Module</TITLE>
+<TITLE>Image Module</TITLE>
 </HEAD>
 <BODY>
 <!--This is the page to display normal size image-->
 <CENTER>
 
     <?php
+        include("PHPconnectionDB.php");
         $conn = connect();
         $photo_id = $_GET['photo_id'];
         
@@ -23,7 +24,9 @@
         }  
     ?>
     
-    
+<FORM ACTION = "search.html" METHOD = "POST">
+<br>Back to search page: <input type = "submit" name = "back" value = "back"></br>
+</FORM>
 </CENTER>
 </BODY>
 </HTML>

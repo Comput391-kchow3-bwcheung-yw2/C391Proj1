@@ -54,7 +54,7 @@
             }
             
             //show option for radiologists
-		if($_SESSION['person_class'] == "r")
+		if($_SESSION['person_class'] == "r" || $_SESSION['person_class'] == "a")
 		{
 			echo('<FORM ');
 			echo('NAME="UploadForm" ACTION="upload.html" METHOD="post" >');
@@ -109,6 +109,19 @@
 			echo('</CENTER>');
 			echo('</FORM>');
 		}
+		
+		//show option seach option for all users
+                echo('<FORM ');
+                echo('NAME="LogoutForm" ACTION="login.php" METHOD="post" >');
+                echo('<CENTER>');
+                echo('<P>Logout</P>');
+                echo('<TABLE>');
+                echo('<TR VALIGN=TOP ALIGN=LEFT>');
+                echo('<TD><INPUT TYPE="submit" NAME="logout" VALUE="Logout"></TD>');
+                echo('</TR>');
+                echo('</TABLE>');
+                echo('</CENTER>');
+		echo('</FORM>');
         }
 ?>
 

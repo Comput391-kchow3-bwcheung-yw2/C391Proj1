@@ -1,0 +1,23 @@
+<?php
+include("PHPconnectionDB.php");
+?>
+<HTML>
+<HEAD>
+
+
+<TITLE>Login Result</TITLE>
+</HEAD>
+
+<BODY>
+	<?php
+	
+	if((isset ($_POST['LOGIN'))
+	{
+
+	}
+	?>
+	
+
+</BODY>
+</HTML>
+

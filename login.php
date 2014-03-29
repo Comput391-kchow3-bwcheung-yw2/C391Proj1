@@ -87,6 +87,18 @@ include("PHPconnectionDB.php");
 		oci_close($conn);
 		
 	}
+	
+	if(isset ($_POST['logout']))
+	{
+		session_start();
+		session_unset();
+		session_destroy();
+		echo('<CENTER>');
+		echo('<p><b>Logout Successful</b></p>');
+		echo('<form method=post action=login.html>');
+		echo('<input type=submit name=Submit value="Return to Login">');
+		echo('</CENTER>');
+	}
 	?>
 	
 

@@ -5,6 +5,11 @@
 
 <BODY>
 <CENTER>
+<style>
+table, th, td {
+border:1px solid black;
+}
+</style>
     
 <?php
 
@@ -37,17 +42,17 @@
         }
         if($time == 'Yearly')
         {
-            $sql = $sql.'TRUNC(TEST_DATE, YEAR), ';
+            $sql = $sql.'TRUNC(TEST_DATE, \'YEAR\'), ';
             echo '<th> Year of </th>';
         }
         if($time == 'Monthly')
         {
-            $sql = $sql.'TRUNC(TEST_DATE, MONTH), ';
+            $sql = $sql.'TRUNC(TEST_DATE, \'MONTH\'), ';
             echo '<th> Month of </th>';
         }
         if($time == 'Weekly')
         {
-            $sql = $sql.'TRUNC(TEST_DATE, WW), ';
+            $sql = $sql.'TRUNC(TEST_DATE, \'WW\'), ';
             echo '<th> Week of </th>';
         }
         
@@ -70,20 +75,19 @@
         }
         if($time == 'Yearly')
         {
-            $sql = $sql.'TRUNC(TEST_DATE, YEAR), ';
+            $sql = $sql.'TRUNC(TEST_DATE, \'YEAR\')';
         }
         if($time == 'Monthly')
         {
-            $sql = $sql.'TRUNC(TEST_DATE, MONTH), ';
+            $sql = $sql.'TRUNC(TEST_DATE, \'MONTH\')';
         }
         if($time == 'Weekly')
         {
-            $sql = $sql.'TRUNC(TEST_DATE, WW), ';
+            $sql = $sql.'TRUNC(TEST_DATE, \'WW\')';
         }
-        //trim off unneeded chars
-        rtrim($sql, ", ");
         $sql = $sql.')';
         
+	echo $sql;
         $stid = oci_parse($conn, $sql );
 	$res=oci_execute($stid); 
 	if (!$res) {
@@ -105,8 +109,8 @@
 ?>
 
 
-<FORM ACTION = "Navigation.php" METHOD = "POST">
-<br>Back to home page: <input type = "submit" name = "back" value = "back"></br>
+<FORM ACTION = "OLAP.html" METHOD = "POST">
+<br>Back to data page: <input type = "submit" name = "back" value = "back"></br>
 </FORM>
 
 </CENTER>

@@ -6,8 +6,8 @@
     <?php
         //code taken from: http://www.php-tutorials.com/oracle-blob-insert-php-bind-variables/
         //http://www.9lessons.info/2009/03/upload-and-resize-image-with-php.html
-	include ("PHPconnectionDB.php");
-	include ("getID.php");
+        include("PHPconnectionDB.php");
+        include("getID.php");
         $conn=connect();
         
         if (isset($_POST['Pictures'])) {
@@ -16,23 +16,25 @@
             echo'<tr>';
             echo "<td>Record ID: <input type = 'int' name = 'RECORD_ID'/></br></td>";
             echo'<th>File path: </th>';
-            echo'<td><input name="filename" type="file" size="30" ></input></td>';
-            echo'<td><input type="submit" name=".submit" value="Upload"></td>';
+            echo'<td><input name="filename" type="file" ></input></td>';
+            echo'<td><input type="submit" name="upload" value="Upload"></td>';
             echo'</tr>';
             echo'</table>';
             echo'</form>';
 	}
         
-        if (isset($_POST['upload-image'])) {
-            
+        if (isset($_POST['upload'])) {
+
             $record_id = $_POST['RECORD_ID'];
-            
+
             if(is_uploaded_file($_FILES['filename']['tmp_name'])){
+
+		$file = $_FILES['filename']['tmp_name'];
+		
+		$content = base64_encode(file_get_contents($file));
+                $image_id = newImageID($conn);
                 
-                $image_id = newImageID();
-                    
-                $uploadedfile = $_FILES['filename']['tmp_name'];
-                $image = imagecreatefromjpeg($uploadedfile);
+                $image = imagecreatefromjpeg($file);
                 list($width,$height)=getimagesize($uploadedfile);
 
                 $newwidth=800;
@@ -48,57 +50,48 @@
                 
                 imagecopyresampled($thumbnail,$image,0,0,0,0,$newwidth1,$newheight1, 
                 $width,$height);
+		
 
-
-                
-                // sql with variables
-                $sql = 'INSERT INTO PAC_IMAGES
-                        VALUES(\''.$record_id.'\', '.$image_id.'\', '.'EMPTY_BLOB(), EMPTY_BLOB(), EMPTY_BLOB)
-                        returning field_lob_a,field_lob_b,field_lob_c into :LOB_A,:LOB_B:LOB_C';
-                $parse_sql = oci_parse($conn, $sql);
-                
-                // create empty lob descriptor
-                $lob_a = oci_new_descriptor($conn, OCI_D_LOB);
-                $lob_b = oci_new_descriptor($conn, OCI_D_LOB);
-                $lob_c = oci_new_descriptor($conn, OCI_D_LOB);
-                
-                // bind the LOB fields
-                oci_bind_by_name($parsed_sql, ':LOB_A', $lob_a, -1, OCI_B_BLOB);
-                oci_bind_by_name($parsed_sql, ':LOB_B', $lob_b, -1, OCI_B_BLOB);
-                oci_bind_by_name($parsed_sql, ':LOB_C', $lob_b, -1, OCI_B_BLOB);
-                
-                if(!oci_execute($parse_sql, OCI_DEFAULT)) {
-                    $e = error_get_last();
-                    $f = oci_error();
-                    echo "Message: ".$e['message']."\n";
-                    echo "File: ".$e['file']."\n";
-                    echo "Line: ".$e['line']."\n";
-                    echo "Oracle Message: ".$f['message'];
-                    // exit if you consider this fatal
-                    exit(9);
-                }
-                else {
-                    // save the blob data
-                    $lob_a->save($thumbnail);
-                    $lob_b->save($image);
-                    $lob_c->save($fullsize);
-                    // commit the query
-                    oci_commit($conn);
-                    // free up the blob descriptors
-                    $lob_a->free();
-                    $lob_b->free();
-                    $lob_c->free();
-                    echo 'Successfully uploaded.';
-                }
-                imagedestroy($image);
-                imagedestroy($fullsize);
-                imagedestroy($thumbnail);
+		$blob_thumbnail = oci_new_descriptor($conn, OCI_D_LOB);
+		$blob_regular = oci_new_descriptor($conn, OCI_D_LOB);
+		$blob_full = oci_new_descriptor($conn, OCI_D_LOB);
+	
+		$sql = 'INSERT into PACS_IMAGES (RECORD_ID, IMAGE_ID, THUMBNAIL, REGULAR_SIZE, FULL_SIZE)
+		values(:recordid, :imageid, empty_blob(), empty_blob(), empty_blob())
+		returning THUMBNAIL, REGULAR_SIZE, FULL_SIZE into :thumbnail, :regularsize, :fullsize';
+	
+		$stmt = oci_parse($conn, $sql);
+	
+		oci_bind_by_name($stmt, ':recordid', $record_id);
+		oci_bind_by_name($stmt, ':imageid', $image_id);
+		oci_bind_by_name($stmt, ':regularsize',$blob_thumbnail, -1, OCI_B_BLOB);
+		oci_bind_by_name($stmt, ':thumbnail',$blob_regular, -1, OCI_B_BLOB);
+		oci_bind_by_name($stmt, ':fullsize',$blob_full, -1, OCI_B_BLOB);
+		
+		oci_execute($stmt, OCI_DEFAULT);
+	
+		if($blob_thumbnail->save($thumbnail) && $blob_regular->save($content) && $blob_full->save($fullsize)) {
+			oci_commit($conn);
+			echo 'Successfully uploaded.';
+		}
+		else {
+			oci_rollback($conn);
+			echo 'Failed upload.';
+		}
+		imagedestroy($thumbnail);
+		imagedestroy($image);
+		imagedestroy($fullsize);
+		$blob_thumbnail->free();
+		$blob_regular->free();
+		$blob_full->free();
+		oci_close($conn);
+		
             }        
         }
     ?>
     
-<FORM ACTION = "search.html" METHOD = "POST">
-<br>Back to search page: <input type = "submit" name = "back" value = "back"></br>
+<FORM ACTION = "upload.html" METHOD = "POST">
+<br>Back to upload page: <input type = "submit" name = "back" value = "back"></br>
 </FORM>
 
 </center>

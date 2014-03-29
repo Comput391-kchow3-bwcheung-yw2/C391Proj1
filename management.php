@@ -24,7 +24,7 @@
 		$conn = connect();
 		$first = $_POST['first'];
 		$last = $_POST['last'];
-		$id = newPersonID();
+		$id = newPersonID($conn);
 		$address = $_POST['address'];
 		$phone = $_POST['phone'];
 		$email = $_POST['email'];
@@ -209,8 +209,8 @@
 	    }
 	    echo '<br><FORM ACTION="management.html" METHOD="post"></br>';
 	    echo 'Back to management: <input type="submit" name="submit" value="submit"></FORM>';
+	    echo '</table>';
 	?>
-	</table>
 	</center>
     </body>
 </html>
