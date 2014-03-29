@@ -36,16 +36,14 @@
                 
                 $image = imagecreatefromjpeg($file);
                 $image_id = newImageID($conn);
-                    
-                $image = imagecreatefromjpeg($file);
 
                 list($width,$height)=getimagesize($image);
 
-                $newwidth=800;
+                $newwidth=100;
                 $newheight=($height/$width)*$newwidth;
                 $fullsize=imagecreatetruecolor($newwidth,$newheight);
                 
-                $newwidth1=64;
+                $newwidth1=20;
                 $newheight1=($height/$width)*$newwidth1;
                 $thumbnail=imagecreatetruecolor($newwidth1,$newheight1);
                 
@@ -55,6 +53,11 @@
                 imagecopyresampled($thumbnail,$image,0,0,0,0,$newwidth1,$newheight1, 
                 $width,$height);
 		
+		ImageJPEG($thumbnail, 'new_thumb.jpeg');
+		ImageJPEG($fullsize, 'new_full.jepg');
+		
+		$final_tumbnail = base64_encode(file_get_contents($new_thumb));
+		$final_fullsize = base64_encode(file_get_contents($new_full));
 
 		$blob_thumbnail = oci_new_descriptor($conn, OCI_D_LOB);
 		$blob_regular = oci_new_descriptor($conn, OCI_D_LOB);
@@ -68,13 +71,13 @@
 	
 		oci_bind_by_name($stmt, ':recordid', $record_id);
 		oci_bind_by_name($stmt, ':imageid', $image_id);
-		oci_bind_by_name($stmt, ':regularsize',$blob_thumbnail, -1, OCI_B_BLOB);
-		oci_bind_by_name($stmt, ':thumbnail',$blob_regular, -1, OCI_B_BLOB);
+		oci_bind_by_name($stmt, ':regularsize',$blob_regular, -1, OCI_B_BLOB);
+		oci_bind_by_name($stmt, ':thumbnail',$blob_thumbnail, -1, OCI_B_BLOB);
 		oci_bind_by_name($stmt, ':fullsize',$blob_full, -1, OCI_B_BLOB);
 		
 		oci_execute($stmt, OCI_DEFAULT);
 	
-		if($blob_thumbnail->save($thumbnail) && $blob_regular->save($content) && $blob_full->save($fullsize)) {
+		if($blob_thumbnail->save($final_tumbnail) && $blob_regular->save($content) && $blob_full->save($final_fullsize)) {
 			oci_commit($conn);
 			echo 'Successfully uploaded.';
 		}

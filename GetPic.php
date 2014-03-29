@@ -19,8 +19,8 @@
             echo htmlentities($err['message']);
         }
         while ($row = oci_fetch_array($stid, OCI_ASSOC)) {
-            echo "<a href=GetBigPic.php?photo_id=".$row['IMAGE_ID'].">";
-            echo '<img src="data:image/jpeg;base64,' . base64_encode( $row['REGULAR_SIZE'] ) . '" /></a>';
+            $img = $row['REGULAR_SIZE']->load();
+            echo '<img width="500px" height="500px" src="data:image/jpeg;base64,' .$img. '" /></a>';
         }  
     ?>
     

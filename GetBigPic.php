@@ -19,7 +19,8 @@
             echo htmlentities($err['message']);
         }
         while ($row = oci_fetch_array($stid, OCI_ASSOC)) {
-            echo '<img src="data:image/jpeg;base64,' . base64_encode( $row['FULL_SIZE'] ) . '" />';
+            $img = $row['FULL_SIZE']->load();
+            echo '<img src="data:image/jpeg;base64,' .$img. '" />';
         }  
     ?>
     

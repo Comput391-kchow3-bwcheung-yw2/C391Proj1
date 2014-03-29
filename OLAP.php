@@ -5,11 +5,11 @@
 
 <BODY>
 <CENTER>
-<style>
-table, th, td {
-border:1px solid black;
-}
-</style>
+	    <style>
+	    table, th, td {
+		border:1px solid black;
+	    }
+	    </style>
     
 <?php
 
@@ -52,7 +52,7 @@ border:1px solid black;
         }
         if($time == 'Weekly')
         {
-            $sql = $sql.'TRUNC(TEST_DATE, \'WW\'), ';
+            $sql = $sql.'TRUNC(TEST_DATE, \'W\'), ';
             echo '<th> Week of </th>';
         }
         
@@ -83,11 +83,15 @@ border:1px solid black;
         }
         if($time == 'Weekly')
         {
-            $sql = $sql.'TRUNC(TEST_DATE, \'WW\')';
+            $sql = $sql.'TRUNC(TEST_DATE, \'W\')';
         }
+	if($time != 'Yearly' && $time != 'Monthly' && $time != 'Weekly'){
+	    $sql = rtrim($sql, ', ');
+	    //echo $sql;
+	}
         $sql = $sql.')';
         
-	echo $sql;
+	//echo $sql;
         $stid = oci_parse($conn, $sql );
 	$res=oci_execute($stid); 
 	if (!$res) {
@@ -96,9 +100,28 @@ border:1px solid black;
 	}
 	while ($row = oci_fetch_array($stid, OCI_ASSOC)) {
 	    echo '<tr>';
-	    foreach ($row as $item) {
-		echo "<td> $item </td>";
+	    if($patient == 'Yes')
+	    {
+		echo '<th>'. $row['FIRST_NAME'] .'</th>';
+		echo '<th>'. $row['LAST_NAME'] .'</th>';
 	    }
+	    if($test == 'Yes')
+	    {
+		echo '<th>'. $row['TEST_TYPE'] .'</th>';
+	    }
+	    if($time == 'Yearly')
+	    {
+		echo '<th>'. $row['TRUNC(TEST_DATE,\'YEAR\')'] .'</th>';
+	    }
+	    if($time == 'Monthly')
+	    {
+		echo '<th>'. $row['TRUNC(TEST_DATE,\'MONTH\')'] .'</th>';
+	    }
+	    if($time == 'Weekly')
+	    {
+		echo '<th>'. $row['TRUNC(TEST_DATE,\'W\')'] .'</th>';
+	    }
+	    echo '<th>'. $row['COUNT(IMAGE_ID)'] .'</th>';
             echo '</tr>';
 	    echo '<br/>';
 	}

@@ -168,7 +168,7 @@ session_start();
     //load the pictures for the record id
     function load_pics($recordID, $conn) {
         
-        $sql = 'SELECT * FROM PACS_IMAGES WHERE RECORD_ID = \''.$recordID.'\'';
+        $sql = 'SELECT * FROM PACS_IMAGES WHERE RECORD_ID = '.$recordID;
         $stid = oci_parse($conn, $sql);
         $res=oci_execute($stid); 
         if (!$res) {
@@ -178,8 +178,9 @@ session_start();
 	
 	echo "<td>";
         while ($row = oci_fetch_array($stid, OCI_ASSOC) ) {
+	    $img = $row['REGULAR_SIZE']->load();
             echo "<a href=GetPic.php?photo_id=".$row['IMAGE_ID'].">";
-            echo '<img src="data:image/jpeg;base64,' .base64_encode( $row['THUMBNAIL'] ) . '" /></a>';
+            echo '<img width="30px" height="30px" src="data:image/jpeg;base64,' .$img. '"/></a>';
         }
 	echo "</td>";
     }
