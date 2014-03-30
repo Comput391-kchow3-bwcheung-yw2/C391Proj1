@@ -112,6 +112,19 @@
 		
 		//show option seach option for all users
                 echo('<FORM ');
+                echo('NAME="ManualForm" target="_blank" ACTION="manual/Welcome.html" METHOD="post" >');
+                echo('<CENTER>');
+                echo('<P>Help Manuals</P>');
+                echo('<TABLE>');
+                echo('<TR VALIGN=TOP ALIGN=LEFT>');
+                echo('<TD><INPUT TYPE="submit" NAME="Help" VALUE="Help"></TD>');
+                echo('</TR>');
+                echo('</TABLE>');
+                echo('</CENTER>');
+		echo('</FORM>');
+		
+		//show option seach option for all users
+                echo('<FORM ');
                 echo('NAME="LogoutForm" ACTION="login.php" METHOD="post" >');
                 echo('<CENTER>');
                 echo('<P>Logout</P>');
