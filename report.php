@@ -7,6 +7,7 @@
 	    }
 	    </style>
 	<?php
+	//this page is for genarating a report of a patient with a diagnosis in a time period
 	  include("PHPconnectionDB.php");
 	  if(isset ($_POST['search'])) {
 		//establish connection
@@ -28,6 +29,7 @@
 		
 		if($from != "" && $till != "")
 		{
+		    //construct the time period
 		    $time_period = 'TO_DATE(\''.$from.'\', \'DD-MON-RR\') AND TO_DATE(\''.$till.'\', \'DD-MON-RR\')';
 
 		    //sql command

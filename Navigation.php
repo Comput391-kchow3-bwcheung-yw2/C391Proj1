@@ -54,7 +54,7 @@
             }
             
             //show option for radiologists
-		if($_SESSION['person_class'] == "r" || $_SESSION['person_class'] == "a")
+		if($_SESSION['person_class'] == "r")
 		{
 			echo('<FORM ');
 			echo('NAME="UploadForm" ACTION="upload.html" METHOD="post" >');

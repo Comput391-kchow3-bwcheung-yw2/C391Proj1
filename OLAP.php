@@ -22,6 +22,7 @@
         
         $conn=connect();
         
+        //grab the options for the data analysis
         $patient = $_POST['PATIENT'];
         $test = $_POST['TESTTYPE'];
         $time = $_POST['TIME_PERIOD'];
@@ -98,6 +99,7 @@
             $err = oci_error($stid);
 	    echo htmlentities($err['message']);
 	}
+        //output the query
 	while ($row = oci_fetch_array($stid, OCI_ASSOC)) {
 	    echo '<tr>';
 	    if($patient == 'Yes')

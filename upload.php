@@ -6,9 +6,12 @@ table, th, td {
 border:1px solid black;
 }
 </style>
-        <?php 
+        <?php
+	//page for uploading a radiology record
 	   include ("PHPconnectionDB.php");
 	   include ("getID.php");
+	   
+	   //insert record
            if (isset($_POST['RecordRetrieve'])) {
 		$conn=connect();
 		$Record_id = newRecordID($conn);;
@@ -30,11 +33,12 @@ border:1px solid black;
                 Records_table();
 	   }
 
-	   
+	   //display the records table
 	   if (isset($_POST['Records'])) {
 		Records_table();
 	   }
 	   
+	   //show input to user for inputting a new record
 	   if (isset($_POST['Enter_Records'])){
 	    	echo "<form action = 'upload.php' METHOD = 'POST'></br>";
 		echo 'Put in the new record you would like to enter:</br>';
@@ -50,6 +54,7 @@ border:1px solid black;
 		echo "</form>";
 	   }
 	  
+	  //shows records table
 	   function Records_table() {
 		   $conn = connect();
 		   echo '<h1> Records Table </h1>';

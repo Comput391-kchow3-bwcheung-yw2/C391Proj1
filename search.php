@@ -22,6 +22,7 @@ session_start();
 
     <?php
         
+	//lists all of the searched for records
         if(isset ($_POST['Search']))
 	{
             $conn = connect();
@@ -81,8 +82,8 @@ session_start();
 		//score1 = firstname, score2 = lastname, score3 = diagnosis, score4 = description
 		$sql = 'SELECT P.FIRST_NAME, P.LAST_NAME, R.*, 6*score(1) + 6*score(2) + 3*score(3) + score(4)';
 	
+		//builds the ranking by score part of query
 		$count = 5;
-	
 		for($i = 1; $i < count($word_list); $i++)
 		{
 		    $sql = $sql.' + 6*score('.$count.') + 6*score('.($count+1).') + 3*score('.($count+2).') + score('.($count+3).')';
@@ -96,6 +97,7 @@ session_start();
 		OR contains(R.DIAGNOSIS, \''.$word_list[0].'\', 3) > 0 
 		OR contains(R.DESCRIPTION, \''.$word_list[0].'\', 4) > 0 ';
 		
+		//builds the ranking by score part of query
 		$count = 5;
 		for($i = 1; $i < count($word_list); $i++)
 		{
@@ -118,18 +120,19 @@ session_start();
         if($_SESSION['person_class'] == "r"){
             $sql = $sql.'AND R.RADIOLOGIST_ID = \''.$person_id.'\' AND ';
         }
-       
 	if($search_terms != '' && $_SESSION['person_class'] == "a" && $time_start != "" && $time_end != "")
 	{
 		$sql = $sql.' AND ';
 	}
 
+	//building time part of query
         if($time_start != "" && $time_end != "")
         {
             $time_period = 'TO_DATE(\''.$time_start.'\', \'DD-MON-RR\') AND TO_DATE(\''.$time_end.'\', \'DD-MON-RR\')';
             $sql = $sql.'R.TEST_DATE BETWEEN '.$time_period.' ';
         }
  
+	//building the sorting part of query
         if($sort_type == ""){
             $sql = $sql.'ORDER BY RANK DESC';
         }
@@ -151,6 +154,7 @@ session_start();
             $err = oci_error($stid);
             echo htmlentities($err['message']);
         }
+	//load the records along with the pictures
         while ($row = oci_fetch_array($stid, OCI_ASSOC)) {
             echo '<tr>';
             foreach ($row as $item) {
@@ -177,10 +181,12 @@ session_start();
         }
 	
 	echo "<td>";
+	//display the thumbnail size images
         while ($row = oci_fetch_array($stid, OCI_ASSOC) ) {
 	    $img = $row['REGULAR_SIZE']->load();
             echo "<a href=GetPic.php?photo_id=".$row['IMAGE_ID'].">";
             echo '<img width="30px" height="30px" src="data:image/jpeg;base64,' .$img. '"/></a>';
+	    //echo '<img src="data:image/jpeg;base64,' .$img. '"/></a>';
         }
 	echo "</td>";
     }

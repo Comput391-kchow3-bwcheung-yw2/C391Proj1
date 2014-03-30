@@ -3,11 +3,12 @@
 <center>
     
 <?php
+    //this file will create a view for the data analysis
     include("PHPconnectionDB.php");
     if(isset ($_POST['CreateViewButton'])) {
         $conn=connect();
         
-        //sql command
+        //sql command for creating a view that includes the different options of the data analysis
 	$sql = 'CREATE OR REPLACE VIEW DATAVIEW AS 
                 SELECT P.FIRST_NAME, P.LAST_NAME, R.TEST_TYPE, R.TEST_DATE, I.IMAGE_ID 
 		FROM PERSONS P, RADIOLOGY_RECORD R, PACS_IMAGES I 
@@ -26,6 +27,7 @@
 	    echo htmlentities($err['message']);
 	}
         
+        //commit the view to database
         $r = oci_commit($conn);
         if (!r) {
             $e = oci_error($conn);

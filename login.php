@@ -53,7 +53,6 @@ include("PHPconnectionDB.php");
 		
 		while (($row = oci_fetch_array($stid, OCI_ASSOC)) != false)
 		{
-			//echo $item.'&nbsp;';
 			if($row['USER_NAME'] == $user && $row['PASSWORD'] == $pass)
 			{
 				echo '<CENTER><p><b>Your Login is Successful!</b></p></CENTER>';

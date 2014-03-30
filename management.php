@@ -4,6 +4,7 @@
         <?php 
 	   include("PHPconnectionDB.php");
 	   include("getID.php");
+	   //for entering new user
            if (isset($_POST['enter_users'])) {
 		$conn=connect();
 		$user = $_POST['user'];
@@ -19,7 +20,8 @@
 			echo htmlentities($err['message']);
            	}
                 Users_table();
-	   }
+	    }
+	   //for entering new person
 	   if (isset($_POST['enter_persons'])) {
 		$conn = connect();
 		$first = $_POST['first'];
@@ -37,7 +39,8 @@
 			echo htmlentities($err['message']);
            	}
                 Persons_table();
-	   }
+	    }
+	   //for entering new doctor
 	   if (isset($_POST['enter_doctors'])) {
 		$conn = connect();
 		$id = $_POST['id'];
@@ -50,7 +53,8 @@
 			echo htmlentities($err['message']);
            	}
                 Doctors_table();
-	   }
+	    }
+	   //for updating a user
            if (isset($_POST['update_users'])) {
 		 $conn = connect();
 		$user = $_POST['user'];
@@ -66,7 +70,8 @@
 			echo htmlentities($err['message']);
            	}
                 Users_table();
-           }
+	    }
+	   //for updating a person
 	   if (isset($_POST['update_persons'])) {
 		$conn = connect();
 		$first = $_POST['first'];
@@ -83,7 +88,8 @@
 			echo htmlentities($err['message']);
            	}
 		Persons_table();
-           }
+	    }
+	   //for updating a doctor
 	   if (isset($_POST['update_doctors'])) {
 		$conn = connect();
 		$id = $_POST['id'];
@@ -96,17 +102,17 @@
 			echo htmlentities($err['message']);
            	}
 		Doctors_table();
-           }
-	   if (isset($_POST['Users'])) {
+	    }
+	    if (isset($_POST['Users'])) {
 		users_table();
-	   }
-	  
+	    }
 	    if (isset($_POST['Persons'])) {
 		Persons_table();
 	    }
 	    if (isset($_POST['Doctors'])) {
 		Doctors_table();
 	    }
+	    //shows the doctor table
 	    function Doctors_table() {
 		   $conn = connect();
 		   echo '<h1> Doctors Table </h1>';
@@ -138,6 +144,7 @@
 		   oci_free_statement($stid);
 		   oci_close($conn);
 	    }
+	    //shows the persons table
            function Persons_table() {       
                    $conn=connect();
            	   echo '<h1> Persons Table </h1>';
@@ -173,6 +180,7 @@
 		   oci_free_statement($stid);
 		   oci_close($conn);
 	    }
+	    //show the users table
             function Users_table() {
 		   $conn=connect();
 		   echo '<h1> Users Table </h1>';

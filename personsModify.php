@@ -3,9 +3,11 @@
 	<center>
         
         <?php
+	//page for letting a user modify their login or personal info
             include ("PHPconnectionDB.php");
             session_start();
 	    
+	    //for displaying login info
             if (isset($_POST['LoginModify'])) {
 		$conn = connect();
 		$sql = 'SELECT * FROM Users WHERE PERSON_ID = \''.$_SESSION['person_id'].'\'';
@@ -27,6 +29,7 @@
 	    echo "</form>";
             }
 	    
+	    //for updating new login info
 	    if (isset($_POST['update_login'])) {
 		$conn = connect();
 		$user = $_POST['user'];
@@ -45,8 +48,7 @@
 		}
 	    }
 	    
-	    
-            
+	    //for displaying personal info
             if (isset($_POST['PersonsModify'])) {
                 $conn = connect();
 		$sql = 'SELECT * FROM PERSONS WHERE PERSON_ID = \'' . $_SESSION['person_id'].'\'';
@@ -75,6 +77,7 @@
 		echo "</form>";
             }
 	    
+	    //for updating the new personal info
 	    if (isset($_POST['update_person'])) {
 		$conn = connect();
 		$first = $_POST['first'];
@@ -96,7 +99,6 @@
 		    echo 'Personal Information Updated Successfully</br>';
 		}
 	    }
-	    
         
 	    echo '<FORM action = "personModify.html" Method = "post"></br>';
 	    echo 'Go back to Personal Info Management: <input type = "submit" name = "submit" value = "back"/></br>';  

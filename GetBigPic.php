@@ -9,8 +9,10 @@
     <?php
         include("PHPconnectionDB.php");
         $conn = connect();
+        //get photo id passed in through url
         $photo_id = $_GET['photo_id'];
         
+        //sql to select the image
         $sql = 'SELECT * FROM PACS_IMAGES WHERE IMAGE_ID = \''.$photo_id.'\'';
         $stid = oci_parse($conn, $sql);
         $res=oci_execute($stid); 
@@ -19,8 +21,10 @@
             echo htmlentities($err['message']);
         }
         while ($row = oci_fetch_array($stid, OCI_ASSOC)) {
-            $img = $row['FULL_SIZE']->load();
-            echo '<img src="data:image/jpeg;base64,' .$img. '" />';
+            //load the image in and print it through html image source
+            $img = $row['REGULAR_SIZE']->load();
+            echo '<img width="700px" height="700px" src="data:image/jpeg;base64,' .$img. '" />';
+            //echo '<img src="data:image/jpeg;base64,' .$img. '"/></a>';
         }  
     ?>
     

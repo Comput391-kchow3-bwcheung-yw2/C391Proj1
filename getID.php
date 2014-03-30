@@ -1,6 +1,7 @@
 <?php
-    //this page is for getting auto generated ids for entering date
+    //this page is for getting auto generated ids for entering data such as persons, records and images
     
+    //function to generate id for new persons with oracle sequence
     function newPersonID($conn){
 
         $sql = 'SELECT person_id_sequence.nextval AS ID from dual';
@@ -18,6 +19,7 @@
         return $person_id;
     }
     
+    //function to generate id for new record with oracle sequence
     function newRecordID($conn){
 
         $sql = 'SELECT record_id_sequence.nextval AS ID from dual';
@@ -33,6 +35,7 @@
         return $record_id;
     }
     
+    //function to generate id for new image with oracle sequence
     function newImageID($conn){
 
         $sql = 'SELECT pic_id_sequence.nextval AS ID from dual';
