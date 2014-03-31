@@ -112,18 +112,19 @@ session_start();
        
         //security part of query
         if($_SESSION['person_class'] == "p"){
-            $sql = $sql.'AND R.PATIENT_ID = \''.$person_id.'\' AND ';
+            $sql = $sql.'AND R.PATIENT_ID = '.$person_id.' AND ';
         }
         if($_SESSION['person_class'] == "d"){
-            $sql = $sql.'AND R.DOCTOR_ID = \''.$person_id.'\' AND ';
+            $sql = $sql.'AND R.DOCTOR_ID = '.$person_id.' AND ';
         }
         if($_SESSION['person_class'] == "r"){
-            $sql = $sql.'AND R.RADIOLOGIST_ID = \''.$person_id.'\' AND ';
+            $sql = $sql.'AND R.RADIOLOGIST_ID = '.$person_id.' AND ';
         }
-	if($search_terms != '' && $_SESSION['person_class'] == "a" && $time_start != "" && $time_end != "")
+	if($search_terms != '' && $_SESSION['person_class'] == "a")
 	{
 		$sql = $sql.' AND ';
 	}
+	
 
 	//building time part of query
         if($time_start != "" && $time_end != "")
@@ -131,6 +132,10 @@ session_start();
             $time_period = 'TO_DATE(\''.$time_start.'\', \'DD-MON-RR\') AND TO_DATE(\''.$time_end.'\', \'DD-MON-RR\')';
             $sql = $sql.'R.TEST_DATE BETWEEN '.$time_period.' ';
         }
+	else{
+	    $sql = rtrim($sql, 'AND ');
+	    $sql = $sql.' ';
+	}
  
 	//building the sorting part of query
         if($sort_type == ""){
@@ -154,6 +159,7 @@ session_start();
             $err = oci_error($stid);
             echo htmlentities($err['message']);
         }
+	echo $sql;
 	//load the records along with the pictures
         while ($row = oci_fetch_array($stid, OCI_ASSOC)) {
             echo '<tr>';
@@ -185,8 +191,7 @@ session_start();
         while ($row = oci_fetch_array($stid, OCI_ASSOC) ) {
 	    $img = $row['REGULAR_SIZE']->load();
             echo "<a href=GetPic.php?photo_id=".$row['IMAGE_ID'].">";
-            echo '<img width="30px" height="30px" src="data:image/jpeg;base64,' .$img. '"/></a>';
-	    //echo '<img src="data:image/jpeg;base64,' .$img. '"/></a>';
+            echo '<img width="60px" height="60px" src="data:image/jpeg;base64,' .$img. '"/></a>';
         }
 	echo "</td>";
     }

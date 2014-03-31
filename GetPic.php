@@ -22,6 +22,7 @@
         while ($row = oci_fetch_array($stid, OCI_ASSOC)) {
             //load the image in and print it through html image source
             $img = $row['REGULAR_SIZE']->load();
+            echo "<a href=GetBigPic.php?photo_id=".$row['IMAGE_ID'].">";
             echo '<img src="data:image/jpeg;base64,' .$img. '" /></a>';
         }  
     ?>

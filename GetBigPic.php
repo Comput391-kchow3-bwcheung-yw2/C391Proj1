@@ -23,8 +23,7 @@
         while ($row = oci_fetch_array($stid, OCI_ASSOC)) {
             //load the image in and print it through html image source
             $img = $row['REGULAR_SIZE']->load();
-            echo '<img width="700px" height="700px" src="data:image/jpeg;base64,' .$img. '" />';
-            //echo '<img src="data:image/jpeg;base64,' .$img. '"/></a>';
+            echo '<img width="1280px" height="900px" src="data:image/jpeg;base64,' .$img. '" />';
         }  
     ?>
     

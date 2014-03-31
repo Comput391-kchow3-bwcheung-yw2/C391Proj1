@@ -61,15 +61,15 @@
                 imagecopyresampled($thumbnail,$image,0,0,0,0,$newwidth1,$newheight1, 
                 $width,$height);
 		
-		ImageJPEG($thumbnail, 'new_thumb.jpeg');
-		ImageJPEG($fullsize, 'new_full.jepg');
+		ImageJPEG($thumbnail, 'images/new_thumb.jpeg');
+		ImageJPEG($fullsize, 'images/new_full.jepg');
 		
 		//final images resized
-		$final_tumbnail = base64_encode(file_get_contents($new_thumb));
-		$final_fullsize = base64_encode(file_get_contents($new_full));
+		//$final_tumbnail = base64_encode(file_get_contents($new_thumb));
+		//$final_fullsize = base64_encode(file_get_contents($new_full));
 		
-		//$final_tumbnail = base64_encode(file_get_contents('new_thumb.jpeg'));
-		//$final_fullsize = base64_encode(file_get_contents('new_full.jepg'));
+		$final_tumbnail = base64_encode(file_get_contents('images/new_thumb.jpeg'));
+		$final_fullsize = base64_encode(file_get_contents('images/new_full.jepg'));
 
 		//inserting blobs into the database
 		$blob_thumbnail = oci_new_descriptor($conn, OCI_D_LOB);
